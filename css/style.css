@@ -1,0 +1,1646 @@
+.no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* 1. 心电扫描光流动画：光头从左滑到右，一气呵成画出心跳与爱心 */
+    @keyframes ecg-flow-move {
+      0% {
+        stroke-dashoffset: 700;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+    .ecg-running-line {
+      stroke-dasharray: 200, 500;
+      animation: ecg-flow-move var(--ecg-duration, 1.8s) linear infinite;
+    }
+
+    /* 2. 真实二联律大爱心心跳跳动（两段式收缩扑通） */
+    @keyframes heart-beat-pulse {
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.2); filter: drop-shadow(0 0 6px #f43f5e); }
+      28% { transform: scale(1.05); }
+      42% { transform: scale(1.28); filter: drop-shadow(0 0 10px #f43f5e); }
+      70% { transform: scale(1); }
+    }
+    .heart-pulse-node {
+      transform-origin: 95px 20px;
+      animation: heart-beat-pulse var(--ecg-duration, 1.8s) ease-in-out infinite;
+    }
+
+    /* 4. 丘比特射箭穿越爱心动画 */
+    @keyframes cupid-arrow-fly {
+      0% { left: -15%; opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { left: 110%; opacity: 0; }
+    }
+    .cupid-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: cupid-arrow-fly var(--ecg-duration, 1.8s) linear infinite;
+      z-index: 20;
+    }
+
+    /* 5. 复古时空邮票齿孔遮罩 (Stamp Perforated Mask) */
+    .stamp-card-mask {
+      --stamp-hole: 4px;      /* 齿孔半圆形半径 */
+      --stamp-gap: 12px;      /* 齿孔中心点间距 */
+      /* 四边精准打孔径向渐变复合遮罩 */
+      mask-image: 
+        radial-gradient(circle at top, transparent var(--stamp-hole), black calc(var(--stamp-hole) + 0.5px)),
+        radial-gradient(circle at bottom, transparent var(--stamp-hole), black calc(var(--stamp-hole) + 0.5px)),
+        radial-gradient(circle at left, transparent var(--stamp-hole), black calc(var(--stamp-hole) + 0.5px)),
+        radial-gradient(circle at right, transparent var(--stamp-hole), black calc(var(--stamp-hole) + 0.5px));
+      mask-position: 0 0, 0 100%, 0 0, 100% 0;
+      mask-size: var(--stamp-gap) 100%, var(--stamp-gap) 100%, 100% var(--stamp-gap), 100% var(--stamp-gap);
+      mask-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+      mask-composite: intersect;
+      -webkit-mask-image: 
+        radial-gradient(circle at top, transparent var(--stamp-hole), black calc(var(--stamp-hole) + 0.5px)),
+        radial-gradient(circle at bottom, transparent var(--stamp-hole), black calc(var(--stamp-hole) + 0.5px)),
+        radial-gradient(circle at left, transparent var(--stamp-hole), black calc(var(--stamp-hole) + 0.5px)),
+        radial-gradient(circle at right, transparent var(--stamp-hole), black calc(var(--stamp-hole) + 0.5px));
+      -webkit-mask-position: 0 0, 0 100%, 0 0, 100% 0;
+      -webkit-mask-size: var(--stamp-gap) 100%, var(--stamp-gap) 100%, 100% var(--stamp-gap), 100% var(--stamp-gap);
+      -webkit-mask-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+      -webkit-mask-composite: source-in;
+    }
+
+    /* 拍立得照片阴影与和纸胶带质感 */
+    .polaroid-card {
+      box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .polaroid-card:hover {
+      transform: scale(1.04) rotate(0deg) !important;
+      z-index: 25;
+      box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.18);
+    }
+    /* 和纸胶带效果 */
+    .washi-tape {
+      background: rgba(254, 243, 199, 0.75);
+      border-left: 2px dashed rgba(217, 119, 6, 0.3);
+      border-right: 2px dashed rgba(217, 119, 6, 0.3);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      backdrop-filter: blur(2px);
+    }
+    /* 便签纸效果 */
+    .sticky-note-card {
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08), 1px 2px 4px rgba(0,0,0,0.05);
+      transform: rotate(1deg);
+    }
+
+    /* 拟物手帐贴纸立体浮雕效果（支持文本 Emoji、静态图与 GIF 动图） */
+    .sticker-badge {
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .sticker-badge:hover {
+      transform: scale(1.18) rotate(6deg);
+    }
+    /* 贴纸四角定位 */
+    .sticker-pos-top-left { top: -6px; left: -6px; right: auto; bottom: auto; }
+    .sticker-pos-top-right { top: -6px; right: -6px; left: auto; bottom: auto; }
+    .sticker-pos-bottom-left { bottom: -6px; left: -6px; top: auto; right: auto; }
+    .sticker-pos-bottom-right { bottom: -6px; right: -6px; top: auto; left: auto; }
+
+    /* 贴纸三种尺寸 */
+    .sticker-size-sm { width: 18px; height: 18px; font-size: 13px; }
+    .sticker-size-md { width: 26px; height: 26px; font-size: 19px; }
+    .sticker-size-lg { width: 36px; height: 36px; font-size: 27px; }
+
+    .sticker-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    .sticker-slot-empty {
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px dashed rgba(180, 180, 180, 0.6);
+      backdrop-filter: blur(2px);
+    }
+    .sticker-slot-empty:hover {
+      background: rgba(251, 191, 36, 0.4);
+      border-color: rgba(245, 158, 11, 0.8);
+    }
+
+    /* 左右滑入动画 */
+    @keyframes slideLeftIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .animate-slide-left {
+      animation: slideLeftIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    /* 文本呼吸时隐时现动画 */
+    @keyframes text-breathe {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+    .animate-text-breathe {
+      animation: text-breathe 4s ease-in-out infinite;
+    }
+
+    /* 调频刻度滑块自定义样式 */
+    .fm-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 4px;
+      height: 18px;
+      background: #ef4444; /* 红色指针 */
+      border-radius: 2px;
+      cursor: pointer;
+      box-shadow: 0 0 4px rgba(239, 68, 68, 0.6);
+    }
+
+    /* 时间数字 Glitch 故障闪烁效果 */
+    @keyframes text-glitch {
+      0% { transform: translate(0); text-shadow: 0 0 0 transparent; }
+      20% { transform: translate(-2px, 1px); text-shadow: -2px 0px 0px rgba(255,0,0,0.7), 2px 0px 0px rgba(0,255,255,0.7); }
+      40% { transform: translate(2px, -1px); text-shadow: 2px 0px 0px rgba(255,0,0,0.7), -2px 0px 0px rgba(0,255,255,0.7); }
+      60% { transform: translate(-1px, 2px); text-shadow: -2px 0px 0px rgba(255,0,0,0.7), 2px 0px 0px rgba(0,255,255,0.7); filter: hue-rotate(90deg); }
+      80% { transform: translate(1px, -2px); text-shadow: 2px 0px 0px rgba(0,255,255,0.7), -2px 0px 0px rgba(255,0,0,0.7); }
+      100% { transform: translate(0); text-shadow: 0 0 0 transparent; }
+    }
+    .glitch-effect {
+      animation: text-glitch 0.2s linear infinite;
+    }
+
+    /* 新增：频率缘由的跑马灯滚动动画 */
+    @keyframes marquee-scroll {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-120%); }
+    }
+    .marquee-container {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+    .animate-marquee {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee-scroll 10s linear infinite; /* 10s是滚动速度，越小越快 */
+    }
+
+    /* ===== 替换为：拍立得/票根弹跳动画与材质 ===== */
+    @keyframes ticket-pop {
+      0% { transform: scale(0.5) translateY(20px) rotate(-10deg); opacity: 0; }
+      60% { transform: scale(1.1) translateY(-2px) rotate(5deg); opacity: 1; }
+      100% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+    }
+    .animate-ticket-pop {
+      animation: ticket-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* 取消拍立得，重做更真实的复古小票根质感 */
+    .mini-ticket {
+      background-color: #fdfbf7;
+      padding: 6px 4px;
+      border-left: 2px dashed rgba(0,0,0,0.15);
+      border-right: 2px dashed rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08), inset 0 0 10px rgba(0,0,0,0.02);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+      position: relative;
+    }
+    /* 票根上下两端的真实打孔效果 */
+    .mini-ticket::before, .mini-ticket::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 5px;
+      background-image: radial-gradient(circle at 4px 2.5px, transparent 2px, #fdfbf7 2.5px);
+      background-size: 8px 5px;
+    }
+    .mini-ticket::before { top: -4px; background-position: 4px 2px; }
+    .mini-ticket::after { bottom: -4px; transform: rotate(180deg); }
+    .stamp-progress-ring circle {
+      transition: stroke-dashoffset 0.05s linear;
+    }
+
+   /* ================= 专属情侣日记本 3D 与主题样式 ================= */
+    .perspective-1000 { perspective: 1200px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+
+    /* 强制笔记本比例，修复手机端拉伸问题 */
+    .diary-book-ratio { aspect-ratio: 3 / 4; max-height: 80vh; }
+
+    /* 4种日记本风格 */
+    .diary-theme-classic {
+      background-color: #fdfaf6;
+      background-image: repeating-linear-gradient(transparent, transparent 27px, #e5e5e5 27px, #e5e5e5 28px);
+      line-height: 28px; border-left: 4px solid #f43f5e; color: #4a4a4a;
+    }
+    .diary-theme-pink {
+      background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+      color: #8b5a2b; box-shadow: inset 0 0 40px rgba(255, 182, 193, 0.3);
+    }
+    .diary-theme-grid {
+      background-color: #ffffff;
+      background-image: linear-gradient(#f0f0f0 1px, transparent 1px), linear-gradient(90deg, #f0f0f0 1px, transparent 1px);
+      background-size: 20px 20px; color: #333333; border-left: 4px solid #d1d5db;
+    }
+    .diary-theme-night {
+      background: linear-gradient(to bottom, #1a1a2e, #16213e);
+      color: #e2e8f0; border-left: 4px solid #4f46e5;
+    }
+    
+    /* 字体支持 */
+    .font-handwriting { font-family: "Kaiti", "STKaiti", "KaiTi_GB2312", serif; letter-spacing: 1px; }
+    .font-custom { font-family: 'DiaryCustomFont', sans-serif; } /* 用户自定义字体 */
+
+   /* 贴纸样式与可交互面板 */
+    .diary-sticker-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: 1rem; z-index: 20; }
+    .diary-sticker-item { position: absolute; pointer-events: auto; touch-action: none; transition: filter 0.2s; }
+    .diary-sticker-item img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+    .diary-sticker-active { outline: 2px dashed #f43f5e; outline-offset: 2px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3)); z-index: 30; }
+    /* 贴纸控制手柄 (常驻) */
+    .sticker-ctrl-btn { position: absolute; width: 26px; height: 26px; background: white; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; cursor: pointer; pointer-events: auto; z-index: 40; }
+    .sticker-delete { top: -13px; left: -13px; color: #ef4444; }
+    .sticker-resize { bottom: -13px; right: -13px; color: #8b5cf6; cursor: nwse-resize; }
+
+    /* 🔮 灵魂共振星云动画 */
+    @keyframes nebula-spin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
+    @keyframes float-quote { 0% { opacity: 0; transform: translateY(20px) scale(0.9); } 20% { opacity: 1; transform: translateY(0) scale(1); } 80% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-20px) scale(0.95); } }
+    .nebula-core { animation: nebula-spin 20s linear infinite; filter: blur(30px); }
+    .quote-item { animation: float-quote 5s ease-in-out forwards; }
+    
+   /* 🐾 提灯使魔实体动画 */
+    @keyframes entity-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes lantern-swing { 0% { transform: rotate(-10deg); } 100% { transform: rotate(15deg); } }
+    @keyframes lantern-glow { 0%, 100% { filter: drop-shadow(0 0 10px #facc15); } 50% { filter: drop-shadow(0 0 25px #fef08a); } }
+    
+    .familiar-entity { 
+      position: relative; display: inline-flex; align-items: center; justify-content: center;
+      animation: entity-float 3.5s ease-in-out infinite; z-index: 10; cursor: pointer;
+    }
+    .familiar-lantern {
+      position: absolute; font-size: 24px; bottom: -5px; right: -15px; transform-origin: top center;
+      animation: lantern-swing 2s ease-in-out infinite alternate, lantern-glow 1.5s infinite;
+    }
+    .traveling-trail { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); width: 2px; height: 40px; background: linear-gradient(to bottom, rgba(250,204,21,0.8), transparent); filter: blur(2px); animation: entity-float 3.5s ease-in-out infinite; }
+
+    /* 🔮 情绪光球 (盲盒) 与戳破特效 */
+    @keyframes orb-pulse { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.1); filter: brightness(1.2); } }
+    .emotion-orb { width: 90px; height: 90px; border-radius: 50%; cursor: pointer; transition: all 0.3s; animation: orb-pulse 3s ease-in-out infinite; position: relative; z-index: 10; }
+    .orb-pink { background: radial-gradient(circle at 30% 30%, #fff, #f472b6, #be185d); box-shadow: 0 0 30px #f472b6; }
+    .orb-blue { background: radial-gradient(circle at 30% 30%, #fff, #60a5fa, #1d4ed8); box-shadow: 0 0 30px #60a5fa; }
+    .orb-purple { background: radial-gradient(circle at 30% 30%, #fff, #c084fc, #7e22ce); box-shadow: 0 0 30px #c084fc; }
+    @keyframes orb-burst { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.8; filter: brightness(2); } 100% { transform: scale(3); opacity: 0; } }
+    .orb-bursting { animation: orb-burst 0.5s ease-out forwards; pointer-events: none; }
+
+    /* 🗺️ 多排横向发光时空轴与悬挂拍立得/便签 */
+    @keyframes time-flicker {
+      0%, 100% { opacity: 1; text-shadow: 0 0 8px #fde047, 0 0 14px #f43f5e; transform: scale(1); }
+      50% { opacity: 0.45; text-shadow: 0 0 2px #fde047; transform: scale(0.97); }
+    }
+    .timeline-time-glow {
+      animation: time-flicker 1.8s ease-in-out infinite;
+    }
+    .h-timeline-row {
+      position: relative;
+      width: 100%;
+      padding: 28px 12px 10px 12px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-around;
+      gap: 10px;
+    }
+    /* 贯穿每一排的横向发光时空弦线 */
+    .h-timeline-row::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      top: 33px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(168,85,247,0.2), #ec4899, #facc15, #ec4899, rgba(168,85,247,0.2));
+      box-shadow: 0 0 10px #ec4899, 0 0 20px rgba(250,204,21,0.5);
+      z-index: 1;
+    }
+    .h-timeline-node {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 88px;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .h-timeline-node:hover {
+      transform: translateY(-4px) scale(1.06);
+      z-index: 20;
+    }
+    /* 轴线上的闪烁时间坐标 */
+    .h-timeline-time {
+      position: absolute;
+      top: -22px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #fef08a;
+      font-family: monospace;
+      background: rgba(15, 23, 42, 0.75);
+      padding: 1px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(250, 204, 21, 0.45);
+      white-space: nowrap;
+    }
+    /* 轴线交汇发光锚点与挂绳木夹 */
+    .h-timeline-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #fef08a;
+      box-shadow: 0 0 8px #facc15, 0 0 16px #f43f5e;
+      border: 2px solid #fff;
+      margin-bottom: 6px;
+      position: relative;
+    }
+    .h-timeline-dot::after {
+      content: '';
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 7px;
+      background: rgba(254, 240, 138, 0.7);
+    }
+    /* 悬挂的缩小版拍立得 */
+    .mini-polaroid {
+      width: 74px;
+      background: #ffffff;
+      padding: 4px 4px 10px 4px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.45);
+      border-radius: 4px;
+      transform: rotate(-2.5deg);
+      color: #1c1917;
+      position: relative;
+    }
+    /* 悬挂的缩小版便签 */
+    .mini-note {
+      width: 74px;
+      min-height: 72px;
+      background: linear-gradient(145deg, #fef9c3 0%, #fde68a 100%);
+      padding: 6px 5px;
+      border-top: 4px solid rgba(245, 158, 11, 0.65);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+      border-radius: 3px;
+      transform: rotate(2.5deg);
+      color: #451a03;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    /* ================= 🕸️ 关系网三大神级视图质感样式 ================= */
+    /* 1. 真实银河斜跨光瀑与星尘 */
+    .milky-way-universe {
+      background: radial-gradient(circle at 50% 50%, #16102b 0%, #0c0817 65%, #05030a 100%);
+      position: relative;
+    }
+    /* 唯美对角线银河星瀑（肉眼清晰可见） */
+    .nebula-stream {
+      position: absolute;
+      top: -30%;
+      left: -30%;
+      width: 160%;
+      height: 160%;
+      background: linear-gradient(
+        135deg,
+        transparent 20%,
+        rgba(147, 51, 234, 0.18) 38%,
+        rgba(236, 72, 153, 0.28) 50%,
+        rgba(245, 158, 11, 0.2) 62%,
+        transparent 80%
+      );
+      filter: blur(24px);
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    /* 真实星星轻轻闪烁动效 */
+    @keyframes star-twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 3px #ffffff); }
+    }
+    .twinkle-star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: star-twinkle var(--t-dur, 3s) ease-in-out infinite;
+      animation-delay: var(--t-delay, 0s);
+      pointer-events: none;
+    }
+
+    /* 恒星核心呼吸光芒 */
+    @keyframes orbit-pulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(168,85,247,0.5)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(236,72,153,0.8)); }
+    }
+    .star-core-glow { animation: orbit-pulse 3.5s ease-in-out infinite; }
+
+    /* 命定双星引力光弦流动 */
+    @keyframes grav-flow {
+      0% { stroke-dashoffset: 40; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .gravity-cord {
+      stroke: url(#gravGrad);
+      stroke-width: 2.2;
+      stroke-dasharray: 4, 3;
+      animation: grav-flow 1.5s linear infinite;
+      filter: drop-shadow(0 0 5px #ec4899);
+    }
+
+    /* 行星轨道公转与文字反向自正 */
+    @keyframes orbit-rotate-cw {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    @keyframes orbit-rotate-ccw {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(-360deg); }
+    }
+    @keyframes anti-rotate-cw {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+    @keyframes anti-rotate-ccw {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .orbit-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+    }
+    .orbit-ring-inner {
+      width: 175px;
+      height: 175px;
+      border: 1px dashed rgba(192, 132, 252, 0.45);
+      animation: orbit-rotate-cw 50s linear infinite;
+    }
+    .orbit-ring-middle {
+      width: 275px;
+      height: 275px;
+      border: 1px dashed rgba(244, 114, 182, 0.4);
+      animation: orbit-rotate-ccw 70s linear infinite;
+    }
+    .orbit-ring-outer {
+      width: 375px;
+      height: 375px;
+      border: 1px dashed rgba(52, 211, 153, 0.35);
+      animation: orbit-rotate-cw 90s linear infinite;
+    }
+    .orbit-ring:hover { animation-play-state: paused !important; }
+    .orbit-ring:hover .planet-node { animation-play-state: paused !important; }
+
+    .planet-slot {
+      position: absolute;
+      pointer-events: auto;
+      transform: translate(-50%, -50%);
+    }
+    .planet-node-cw { animation: anti-rotate-cw 50s linear infinite; }
+    .planet-node-ccw { animation: anti-rotate-ccw 70s linear infinite; }
+    .planet-node-outer { animation: anti-rotate-cw 90s linear infinite; }
+
+    /* 立体球形行星与发光 */
+    .sphere-planet {
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .sphere-planet:hover {
+      transform: scale(1.22);
+      z-index: 50;
+    }
+
+    /* 伴星轻柔浮动与星芒呼吸动效（不再公转，陪伴在主星身旁） */
+    @keyframes companion-float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+        filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.6));
+      }
+      50% {
+        transform: translate(-3px, -5px) scale(1.05);
+        filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.9));
+      }
+    }
+    .companion-binary-star {
+      animation: companion-float 4.5s ease-in-out infinite;
+    }
+
+    /* 真正的高清半透明琉璃光环（替代生硬粗黄线） */
+    .crystal-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 145%;
+      height: 40%;
+      border-radius: 50%;
+      border: 1.5px solid rgba(254, 215, 170, 0.85);
+      transform: translate(-50%, -50%) rotate(-22deg);
+      box-shadow: 0 0 12px rgba(251, 146, 60, 0.6), inset 0 0 6px rgba(255, 255, 255, 0.5);
+      pointer-events: none;
+    }
+
+    /* 深空琉璃水晶球体（精致凹凸立体光影） */
+    .crystal-planet-sphere {
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 28%, #fff0f5 0%, #f472b6 45%, #9333ea 85%, #3b0764 100%);
+      box-shadow: inset -3px -3px 8px rgba(0, 0, 0, 0.6), inset 2px 2px 6px rgba(255, 255, 255, 0.8), 0 0 16px rgba(236, 72, 153, 0.5);
+    }
+
+    /* 软木塞背景与红线 */
+    .corkboard-bg {
+      background-color: #d2a679;
+      background-image: 
+        radial-gradient(rgba(0,0,0,0.12) 15%, transparent 16%),
+        radial-gradient(rgba(255,255,255,0.2) 15%, transparent 16%);
+      background-size: 16px 16px;
+      background-position: 0 0, 8px 8px;
+    }
+    .cork-pin {
+      box-shadow: 0 3px 6px rgba(0,0,0,0.35);
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+    }
+
+    /* ================= 🎭 线下约会 4 款极致差异化 UI 风格库 (质变版) ================= */
+    
+    /* 风格 1：🎬 电影剧场台本风 (修复吃字显示不全，全段完整保留 + 电影分镜高亮) */
+    .offline-theme-theater {
+      background: #09080e !important;
+      color: #cbd5e1 !important;
+      font-family: "SongTi", "SimSun", "Courier New", serif;
+      box-shadow: inset 0 25px 35px -10px rgba(0,0,0,0.95), inset 0 -25px 35px -10px rgba(0,0,0,0.95);
+    }
+    .theater-full-script {
+      color: #94a3b8;
+      line-height: 2.1;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .theater-full-script em {
+      color: #ffffff;
+      font-weight: 700;
+      font-style: normal;
+      background: rgba(244, 63, 94, 0.12);
+      border-bottom: 1.5px solid rgba(244, 63, 94, 0.6);
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    /* 风格 2：📜 复古羊皮手记风 (立体铜质活页环、荧光笔水彩高光、双人手帐便利贴) */
+    .offline-theme-parchment {
+      background-color: #f6eedb !important;
+      background-image: repeating-linear-gradient(transparent, transparent 31px, #e4d5be 31px, #e4d5be 32px) !important;
+      color: #3e2723 !important;
+      font-family: "Kaiti", "STKaiti", "KaiTi_GB2312", serif;
+      box-shadow: inset 24px 0 25px -10px rgba(78, 52, 46, 0.35);
+      position: relative;
+    }
+    /* 摒弃生硬假圆环，升级为：高级复古真皮装订边脊 + 双排车缝虚线阴影 */
+    .offline-theme-parchment::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 14px;
+      background: linear-gradient(90deg, #4a2e1b 0%, #6d4c41 65%, #3e2723 100%);
+      box-shadow: 2px 0 8px rgba(0,0,0,0.35);
+      border-right: 1.5px dashed rgba(255, 236, 179, 0.45);
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    /* 📖 行内原位眉批专属样式 */
+    .inline-sticky-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 10px;
+      padding: 1px 6px;
+      margin: 0 4px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #fef08a 0%, #fde047 100%);
+      color: #713f12;
+      border: 1px solid rgba(234, 179, 8, 0.4);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      cursor: pointer;
+      user-select: none;
+      vertical-align: middle;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .inline-sticky-tag:hover {
+      transform: scale(1.06);
+      box-shadow: 0 2px 6px rgba(234, 179, 8, 0.35);
+    }
+    .inline-sticky-card {
+      display: block;
+      margin: 8px 0;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #fffdf0;
+      border: 1px solid #fef08a;
+      border-left: 3.5px solid #eab308;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      font-family: inherit;
+      color: #3e2723;
+      transform: rotate(-0.5deg);
+    }
+    .inline-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #78350f;
+      border-bottom: 1px dashed rgba(234, 179, 8, 0.4);
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+    .inline-user-comment {
+      font-size: 11px;
+      color: #1f2937;
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+    .inline-char-reply {
+      font-size: 11px;
+      color: #991b1b;
+      font-weight: 700;
+      line-height: 1.5;
+      padding-top: 4px;
+      border-top: 1px dashed rgba(248, 113, 113, 0.3);
+    }
+
+    /* 水彩荧光笔高光划线动效 */
+    .parchment-highlight {
+      background: linear-gradient(120deg, rgba(254, 240, 138, 0.85) 0%, rgba(253, 224, 71, 0.75) 100%);
+      border-radius: 4px;
+      padding: 2px 4px;
+      box-shadow: 0 1px 2px rgba(234, 179, 8, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    /* 纸页便利贴便签 */
+    .parchment-sticky-note {
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      box-shadow: 2px 4px 12px rgba(80, 50, 20, 0.12);
+      border-left: 4px solid #facc15;
+      position: relative;
+    }
+    /* Char专属红墨水批注 */
+    .parchment-char-comment {
+      color: #991b1b;
+      font-family: "Kaiti", "STKaiti", serif;
+      font-style: italic;
+      border-left: 2px dashed #f87171;
+      padding-left: 8px;
+      margin-top: 6px;
+    }
+
+    /* 风格 3：✨ 乙女视觉小说 ADV 风 (立绘剪影透光 + 底部沉浸琉璃大对话槽) */
+    .offline-theme-visualnovel {
+      background: radial-gradient(circle at 50% 30%, #2a1b38 0%, #110d1a 70%, #09070e 100%) !important;
+      color: #ffffff !important;
+      position: relative;
+    }
+    .vn-bg-silhouette {
+      position: absolute;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 63, 94, 0.25) 0%, transparent 70%);
+      filter: blur(20px);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .vn-adv-frame {
+      background: linear-gradient(180deg, rgba(28, 22, 43, 0.94) 0%, rgba(15, 12, 24, 0.98) 100%);
+      border: 1.5px solid rgba(244, 114, 182, 0.4);
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.2);
+      backdrop-filter: blur(20px);
+      border-radius: 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+    .vn-badge-gold {
+      background: linear-gradient(90deg, #f43f5e, #fb7185);
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 2px 10px rgba(244, 63, 94, 0.5);
+    }
+    @keyframes adv-pointer-pulse {
+      0%, 100% { opacity: 1; transform: translateY(0); }
+      50% { opacity: 0.3; transform: translateY(3px); }
+    }
+    .adv-pointer { animation: adv-pointer-pulse 0.9s ease-in-out infinite; }
+
+    /* 风格 4：🕊️ 现实同室极简风 (独处暖灯光晕 + 私人精装小说书页排版) */
+    .offline-theme-minimalist {
+      background: radial-gradient(circle at 80% 15%, rgba(254, 243, 199, 0.25) 0%, rgba(255, 237, 213, 0.08) 50%, transparent 80%) !important;
+      color: #1e293b !important;
+    }
+    .dark .offline-theme-minimalist {
+      background: radial-gradient(circle at 80% 15%, rgba(245, 158, 11, 0.15) 0%, rgba(15, 23, 42, 0.95) 70%, #030712 100%) !important;
+      color: #f1f5f9 !important;
+    }
+    .novel-book-page {
+      line-height: 2.2;
+      font-size: 13.5px;
+      letter-spacing: 0.05em;
+      text-indent: 2em;
+      font-family: -apple-system, "Noto Serif SC", "Source Han Serif", serif;
+      word-break: break-word;
+    }
+    .novel-player-line {
+      text-indent: 0;
+      color: #e11d48;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-left: 2px solid #f43f5e;
+      background: rgba(244, 63, 94, 0.06);
+      margin: 10px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .dark .novel-player-line {
+      color: #fda4af;
+      background: rgba(244, 63, 94, 0.12);
+    }
+
+    /* ================= 📖 世界书三大神级美学主题专属样式 ================= */
+    
+    /* ========== 1. 【📜 卷轴模式】：三种无累赘伸缩卷轴形态 ========== */
+    .wb-theme-scroll {
+      background-color: #dfd6c6 !important;
+      background-image: 
+        radial-gradient(circle at 50% 30%, rgba(245, 239, 230, 0.5) 0%, rgba(195, 180, 160, 0.8) 100%),
+        url("https://img.cdn1.vip/i/6ad75bb0060ec_1792498608.webp") !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-attachment: fixed !important;
+      color: #2b221b !important;
+      font-family: "SongTi", "SimSun", "STSong", "Kaiti", serif;
+    }
+
+    .telescopic-scroll-wrapper {
+      position: relative;
+      margin: 8px 2px 14px 2px;
+      filter: drop-shadow(0 6px 14px rgba(40, 30, 20, 0.22));
+      user-select: none;
+    }
+
+    /* 截图同款：立体纸卷圆筒 (顶轴与底轴) */
+    .scroll-cylinder-rod {
+      height: 22px;
+      border-radius: 11px;
+      background: linear-gradient(180deg, #8a7a67 0%, #ded3bf 28%, #faf5ec 50%, #baa892 82%, #5c4d3d 100%);
+      box-shadow: 0 3px 6px rgba(35, 25, 15, 0.25), inset 0 1px 2px rgba(255,255,255,0.85);
+      position: relative;
+      z-index: 20;
+      cursor: pointer;
+    }
+
+    /* 物理级伸缩折叠盒 */
+    .scroll-stretch-canvas {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.6s cubic-bezier(0.18, 0.9, 0.28, 1.15);
+    }
+    .scroll-stretch-canvas.is-open {
+      grid-template-rows: 1fr;
+    }
+    .scroll-stretch-inner {
+      overflow: hidden;
+    }
+
+    /* 截图同款：展开后的整幅做旧羊皮大画芯 (撕边毛边 + 玫瑰信笺底纹) */
+    .ancient-scroll-sheet {
+      background-color: #f3ede2;
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.45) 0%, rgba(215, 200, 178, 0.35) 100%),
+        url("https://img.cdn1.vip/i/6ad75bb0060ec_1792498608.webp");
+      background-size: cover;
+      background-position: center bottom;
+      padding: 24px 18px;
+      margin: -4px 6px;
+      position: relative;
+      z-index: 10;
+      box-shadow: inset 0 12px 16px -8px rgba(35, 25, 15, 0.35), inset 0 -12px 16px -8px rgba(35, 25, 15, 0.35);
+      clip-path: polygon(
+        0% 0%, 100% 0%, 
+        99.2% 8%, 100% 16%, 98.6% 25%, 99.8% 35%, 98.2% 46%, 100% 55%, 98.7% 66%, 99.8% 76%, 98.4% 86%, 100% 94%, 99.2% 100%, 
+        0% 100%, 
+        0.8% 94%, 0% 86%, 1.6% 76%, 0.2% 66%, 1.4% 55%, 0% 45%, 1.8% 35%, 0.2% 25%, 1.4% 15%, 0.8% 8%
+      );
+    }
+
+    /* ----- 方案 A 专属：单轴悬简 (收起时仅一根顶轴，下垂轻薄题签，彻底消灭双棍累赘) ----- */
+    .scroll-single-slip {
+      background: #f6efe4;
+      background-image: url("https://img.cdn1.vip/i/6ad75bb0060ec_1792498608.webp");
+      background-size: cover;
+      background-position: center;
+      margin: -3px 8px 0 8px;
+      padding: 8px 12px;
+      border-radius: 0 0 6px 6px;
+      border: 1px solid #baa892;
+      border-top: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(40, 30, 20, 0.12);
+    }
+
+    /* ----- 方案 B 专属：极简锦绫题签条 (无粗圆筒，修身扁平) ----- */
+    .scroll-silk-label {
+      background: #f5eee2;
+      border: 1px solid #baa892;
+      border-left: 4px solid #8f2f3d;
+      border-radius: 6px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(40, 30, 20, 0.1);
+    }
+
+    /* ----- 方案 C 专属：单根合抱圆筒 (标题直接印在圆筒表面) ----- */
+    .scroll-solid-cylinder {
+      height: 38px;
+      border-radius: 19px;
+      background: linear-gradient(180deg, #8a7a67 0%, #ded3bf 28%, #faf5ec 50%, #baa892 82%, #5c4d3d 100%);
+      box-shadow: 0 4px 10px rgba(35, 25, 15, 0.28), inset 0 1px 2px rgba(255,255,255,0.85);
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    /* 截图同款：巴洛克双细线内框与四角暗花 */
+    .scroll-frame-outer {
+      border: 1px solid rgba(135, 100, 70, 0.45);
+      padding: 3px;
+    }
+    .scroll-frame-inner {
+      border: 1.5px solid rgba(135, 100, 70, 0.8);
+      padding: 16px 14px;
+      position: relative;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(1px);
+    }
+    .scroll-corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      color: #7a5435;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .sc-tl { top: -2px; left: -2px; }
+    .sc-tr { top: -2px; right: -2px; transform: scaleX(-1); }
+    .sc-bl { bottom: -2px; left: -2px; transform: scaleY(-1); }
+    .sc-br { bottom: -2px; right: -2px; transform: scale(-1, -1); }
+
+    /* 截图同款：圆形印章开关 (纯古典印泥质感) */
+    .scroll-wax-stamp-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.5);
+      user-select: none;
+      font-size: 10.5px;
+      font-weight: 900;
+    }
+    .stamp-enabled {
+      background: radial-gradient(circle at 35% 35%, #b93848, #882230, #5c141e);
+      color: #fce7eb;
+      border: 1px solid #731b27;
+    }
+    .stamp-disabled {
+      background: radial-gradient(circle at 35% 35%, #c2b5a5, #9c8e7e, #6e6253);
+      color: #eee9e2;
+      border: 1px solid #54493b;
+    }
+
+    /* ================= 📖 世界书全屏编辑界面三大主题样式 ================= */
+    /* 1. 卷轴古风全屏纸 */
+    .wb-edit-page-scroll {
+      background-color: #f4ede1 !important;
+      background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.6) 0%, rgba(215, 200, 178, 0.4) 100%),
+                        url("https://img.cdn1.vip/i/6ad75bb0060ec_1792498608.webp") !important;
+      background-size: cover !important;
+      color: #2b221b !important;
+      font-family: "SongTi", "SimSun", "STSong", "Kaiti", serif;
+    }
+    .wb-edit-input-scroll {
+      background: rgba(255, 255, 255, 0.5) !important;
+      border: 1px solid #c4b39e !important;
+      color: #2b221b !important;
+    }
+    .wb-edit-input-scroll:focus {
+      border-color: #8f2f3d !important;
+      box-shadow: 0 0 0 2px rgba(143, 47, 61, 0.15) !important;
+    }
+
+    /* 2. 观测所深空全屏极光 */
+    .wb-edit-page-cyber {
+      background: radial-gradient(circle at 50% 15%, #181030 0%, #0a0614 65%, #030108 100%) !important;
+      color: #f1ede8 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .wb-edit-input-cyber {
+      background: rgba(255, 255, 255, 0.06) !important;
+      border: 1px solid rgba(244, 114, 182, 0.3) !important;
+      color: #ffffff !important;
+      backdrop-filter: blur(12px);
+    }
+    .wb-edit-input-cyber:focus {
+      border-color: #f472b6 !important;
+      box-shadow: 0 0 14px rgba(244, 114, 182, 0.4) !important;
+    }
+
+    /* 3. 手帐治愈网格纸全屏 */
+    .wb-edit-page-journal {
+      background: #faf6ed !important;
+      background-image: linear-gradient(#ebe3cd 1px, transparent 1px), linear-gradient(90deg, #ebe3cd 1px, transparent 1px) !important;
+      background-size: 18px 18px !important;
+      color: #3e3228 !important;
+      font-family: "Kaiti", "STKaiti", serif;
+    }
+    .wb-edit-input-journal {
+      background: #ffffff !important;
+      border: 1px solid #e2d7c3 !important;
+      color: #3e3228 !important;
+    }
+    .wb-edit-input-journal:focus {
+      border-color: #f59e0b !important;
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15) !important;
+    }
+    /* ================= 形态 1：✨ 莫兰迪·静谧星图 (Morandi Hazy Crystal) ================= */
+    
+    /* 莫兰迪柔雾呼吸：雾霾蓝 ➔ 干燥玫瑰 ➔ 灰鼠尾草紫 极轻柔呼吸 */
+    @keyframes morandi-card-breathe {
+      0%, 100% {
+        border-color: rgba(226, 185, 195, 0.45); /* 干燥玫瑰灰 */
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 0 16px rgba(186, 198, 214, 0.2);
+      }
+      50% {
+        border-color: rgba(186, 198, 214, 0.55); /* 雾霾灰蓝 */
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.55), 0 0 22px rgba(209, 196, 212, 0.3);
+      }
+    }
+
+    .obs-card-starmap-compact {
+      /* 莫兰迪调色盘：深邃灰蓝夜空 + 灰粉云雾，极度温和耐看 */
+      background: linear-gradient(135deg, rgba(38, 35, 52, 0.75) 0%, rgba(29, 33, 48, 0.8) 50%, rgba(22, 26, 38, 0.85) 100%) !important;
+      border: 1.5px solid rgba(226, 185, 195, 0.45);
+      border-radius: 1.35rem;
+      position: relative;
+      color: #f1ede8;
+      overflow: hidden;
+      padding: 12px 14px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 1.5px rgba(255, 255, 255, 0.4);
+      animation: morandi-card-breathe 7s infinite ease-in-out;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* 开启态：燕麦奶白 + 柔雾玫瑰金微晕 */
+    .obs-card-starmap-compact.is-active-starmap {
+      background: linear-gradient(135deg, rgba(54, 46, 68, 0.85) 0%, rgba(42, 45, 62, 0.88) 50%, rgba(28, 32, 45, 0.92) 100%) !important;
+      border-color: rgba(238, 218, 210, 0.75) !important;
+      box-shadow: 0 0 25px rgba(226, 185, 195, 0.35), 0 0 40px rgba(186, 198, 214, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* 莫兰迪雾面水光漫反射痕 */
+    .obs-card-starmap-compact::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 46%,
+        rgba(255, 255, 255, 0.08) 50%,
+        transparent 54%
+      );
+      transform: rotate(25deg);
+      pointer-events: none;
+      animation: morandi-shimmer 9s infinite ease-in-out;
+    }
+    @keyframes morandi-shimmer {
+      0% { transform: translateY(-100%) rotate(25deg); }
+      100% { transform: translateY(100%) rotate(25deg); }
+    }
+
+    /* 哑光冷银四角十字星 */
+    .crystal-cross-star {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      pointer-events: none;
+      color: #e5e0dc;
+      filter: drop-shadow(0 0 3px rgba(226, 185, 195, 0.6));
+      opacity: 0.8;
+      animation: morandi-star-pulse 3.5s infinite ease-in-out;
+    }
+    @keyframes morandi-star-pulse {
+      0%, 100% { transform: scale(0.9); opacity: 0.55; }
+      50% { transform: scale(1.2); opacity: 0.95; filter: drop-shadow(0 0 5px #fff); }
+    }
+
+    /* 右侧背景：微光灰调星座连线 */
+    .starmap-constellation-bg {
+      position: absolute;
+      right: 0px; top: 50%;
+      transform: translateY(-50%);
+      width: 140px; height: 110px;
+      pointer-events: none;
+      opacity: 0.65;
+      filter: drop-shadow(0 0 4px rgba(226, 185, 195, 0.4));
+    }
+
+    @keyframes constell-dash {
+      to { stroke-dashoffset: -30; }
+    }
+    .constell-line {
+      stroke-dasharray: 4, 3;
+      animation: constell-dash 5s linear infinite;
+    }
+
+    /* 莫兰迪欧泊宝石开关 (低饱和哑光雾润质感) */
+    .starmap-lens-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 9.5px;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      backdrop-filter: blur(8px);
+      border: 1.2px solid rgba(255, 255, 255, 0.4);
+    }
+    /* 开启：柔雾燕麦奶茶 + 灰粉月晕 */
+    .starmap-lens-btn.is-on {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(226, 185, 195, 0.45) 50%, rgba(186, 198, 214, 0.5) 100%) !important;
+      border-color: #eedad2 !important;
+      color: #f7f3ee !important;
+      box-shadow: 0 0 12px rgba(226, 185, 195, 0.5), inset 0 1px 1px #ffffff;
+    }
+    .starmap-lens-gem {
+      width: 6.5px;
+      height: 6.5px;
+      border-radius: 50%;
+      background: #eedad2;
+      box-shadow: 0 0 5px #eedad2, 0 0 8px rgba(226, 185, 195, 0.5);
+    }
+    /* 关闭：沉静雾霾灰蓝 */
+    .starmap-lens-btn.is-off {
+      background: rgba(36, 40, 52, 0.55);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #b8c0cc;
+    }
+    .starmap-lens-btn.is-off .starmap-lens-gem {
+      background: #8b95a5;
+      box-shadow: none;
+    }
+    /* 形态4：异象监视器 */
+    .obs-card-crt {
+      background: #020804;
+      border: 2px solid #15803d;
+      border-radius: 0.6rem;
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.25), inset 0 0 20px rgba(20, 83, 45, 0.5);
+      position: relative;
+      font-family: "Courier New", Courier, monospace;
+      color: #4ade80;
+    }
+    .obs-card-crt::after {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+      background-size: 100% 4px;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    .obs-crt-btn {
+      padding: 1px 8px;
+      border: 1px solid #22c55e;
+      background: rgba(34, 197, 94, 0.2);
+      color: #86efac;
+      font-size: 9px;
+      font-weight: 900;
+      border-radius: 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    .obs-crt-btn.is-off {
+      border-color: #374151;
+      background: #111827;
+      color: #6b7280;
+    }
+
+    /* ========== 3. 【📑 手帐模式】：治愈系法式复古手帐 · 和纸胶带与手撕便签 ========== */
+    .wb-theme-journal {
+      background: #faf6ed !important;
+      background-image: 
+        linear-gradient(#ebe3cd 1px, transparent 1px), 
+        linear-gradient(90deg, #ebe3cd 1px, transparent 1px) !important;
+      background-size: 18px 18px !important;
+      color: #3e3228 !important;
+      font-family: "Kaiti", "STKaiti", "SongTi", serif;
+      position: relative;
+    }
+
+    /* 手帐卡片：微倾斜和纸便签质感 (与其它主题尺寸完全匹配) */
+    .wb-journal-card {
+      background: #fffdfa;
+      border: 1px solid #e8decb;
+      border-radius: 1.25rem;
+      position: relative;
+      padding: 14px 16px;
+      box-shadow: 0 4px 14px rgba(78, 52, 46, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .wb-journal-card:hover {
+      transform: translateY(-2px) rotate(0deg) !important;
+      box-shadow: 0 8px 20px rgba(78, 52, 46, 0.12);
+    }
+
+    /* 顶部贴着的半透明和纸胶带 */
+    .journal-tape {
+      position: absolute;
+      top: -6px;
+      left: 20px;
+      width: 48px;
+      height: 14px;
+      background: rgba(254, 240, 138, 0.85);
+      border-left: 2px dashed rgba(217, 119, 6, 0.35);
+      border-right: 2px dashed rgba(217, 119, 6, 0.35);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      backdrop-filter: blur(2px);
+      transform: rotate(-1.5deg);
+      z-index: 10;
+    }
+    .journal-tape-rose {
+      background: rgba(254, 205, 211, 0.85);
+      border-left-color: rgba(225, 29, 72, 0.35);
+      border-right-color: rgba(225, 29, 72, 0.35);
+    }
+
+    /* 手帐木夹 / 爱心回形针开关 */
+    .journal-clip-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 10px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    /* 开启：复古小木夹暖阳橙 */
+    .journal-clip-btn.is-on {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      color: #92400e;
+      box-shadow: 0 1px 3px rgba(245, 158, 11, 0.2);
+    }
+    /* 关闭：淡雅素纸灰 */
+    .journal-clip-btn.is-off {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      color: #9ca3af;
+    }
+
+    /* ================= 🌌 观星站三大拟真美学形态 (物理实体级重塑) ================= */
+    .wb-theme-cyber {
+      background: radial-gradient(circle at 50% 15%, #181030 0%, #0a0614 65%, #030108 100%) !important;
+      color: #e2e8f0 !important;
+      position: relative;
+    }
+
+    .obs-variant-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2.5px;
+      border-radius: 9999px;
+      background: rgba(10, 6, 20, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    }
+
+    /* ---------- 1. ✨ 琉璃星图专属：建议 A+C 融合顶级珠宝级微缩卡片 ---------- */
+    .obs-card-starmap-compact {
+      background: radial-gradient(circle at 80% 20%, rgba(59, 29, 94, 0.45) 0%, rgba(20, 10, 36, 0.85) 100%);
+      border: 1px solid rgba(244, 114, 182, 0.35);
+      border-radius: 1rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      padding: 10px 12px; /* 高度压缩约30% */
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* 左侧纵向星轨光导管 */
+    .starmap-light-guide {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3.5px;
+      background: #332042;
+      transition: all 0.3s ease;
+    }
+    /* 开启态：光导管散发极光粉紫霓虹 */
+    .is-active-starmap .starmap-light-guide {
+      background: linear-gradient(180deg, #f43f5e, #ec4899, #a855f7);
+      box-shadow: 0 0 10px #f43f5e, 0 0 20px #ec4899;
+    }
+    /* 开启态卡片贝母微光 */
+    .obs-card-starmap-compact.is-active-starmap {
+      border-color: rgba(244, 114, 182, 0.7);
+      box-shadow: 0 4px 25px rgba(236, 72, 153, 0.25), inset 0 0 15px rgba(244, 114, 182, 0.12);
+    }
+
+    /* 建议A专属：金属银圈包边的微缩水晶球透镜 (尺寸精致紧凑 26px) */
+    .starmap-jewel-lens {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    /* 开启态：七彩偏振琉璃折射与白色反光斑 */
+    .starmap-jewel-lens.is-on {
+      border: 1.5px solid #ffffff;
+      background: radial-gradient(circle at 35% 25%, #ffffff 0%, #fda4af 30%, #c084fc 65%, #6b21a8 100%);
+      box-shadow: 0 0 14px rgba(244, 63, 94, 0.9), 0 0 24px rgba(192, 132, 252, 0.7), inset 0 0 4px #ffffff;
+      transform: scale(1.08);
+    }
+    .starmap-jewel-lens.is-on::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 5px;
+      width: 7px; height: 3.5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      transform: rotate(-30deg);
+      filter: blur(0.3px);
+    }
+    /* 关闭态：清冷素雅银灰透镜 */
+    .starmap-jewel-lens.is-off {
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      background: radial-gradient(circle at 35% 25%, #94a3b8 0%, #475569 55%, #1e293b 100%);
+      opacity: 0.5;
+    }
+
+    /* 建议C专属：呼吸十字星芒动效 */
+    @keyframes star-flare-breath {
+      0%, 100% { opacity: 0.4; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 5px #fbcfe8); }
+    }
+    .starmap-cross-star {
+      animation: star-flare-breath 3s ease-in-out infinite;
+      color: #fbcfe8;
+    }
+
+    /* ---------- 2. 🧭 诗意星象腕表专属：法式甜心马卡龙 · 白贝母星象珠宝 ---------- */
+
+    /* 观星站专属动态背景：马卡龙流光星云 (薄荷蓝 + 草莓奶霜 + 香草星尘) */
+    .wb-theme-cyber {
+      background: 
+        radial-gradient(circle at 15% 15%, rgba(147, 197, 253, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 85% 35%, rgba(244, 114, 182, 0.28) 0%, transparent 55%),
+        radial-gradient(circle at 50% 85%, rgba(196, 181, 253, 0.22) 0%, transparent 50%),
+        radial-gradient(circle at 50% 40%, #15102a 0%, #0d081a 60%, #06030c 100%) !important;
+      color: #fdf2f8 !important;
+      position: relative;
+    }
+
+    /* 背景漂浮的马卡龙星尘微粒 */
+    .wb-theme-cyber::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 20% 25%, #fef9c3 1px, transparent 2px),
+        radial-gradient(circle at 75% 15%, #fbcfe8 1.5px, transparent 2.5px),
+        radial-gradient(circle at 85% 65%, #a7f3d0 1px, transparent 2px),
+        radial-gradient(circle at 35% 75%, #bae6fd 1.5px, transparent 2.5px);
+      background-size: 110px 110px;
+      opacity: 0.65;
+      pointer-events: none;
+      animation: macaron-stardust-drift 25s linear infinite;
+    }
+    @keyframes macaron-stardust-drift {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-110px); }
+    }
+
+    /* ★★★ 核心修复：彻底消灭突兀黄框！草莓奶粉 ➔ 薄荷海盐 ➔ 丁香浅紫 梦幻多色呼吸 ★★★ */
+    @keyframes macaron-card-glow {
+      0% {
+        border-color: rgba(244, 114, 182, 0.6);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.4), 0 0 16px rgba(244, 114, 182, 0.35);
+      }
+      33% {
+        border-color: rgba(147, 197, 253, 0.65);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.5), 0 0 18px rgba(147, 197, 253, 0.4);
+      }
+      66% {
+        border-color: rgba(196, 181, 253, 0.65);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.45), 0 0 18px rgba(196, 181, 253, 0.38);
+      }
+      100% {
+        border-color: rgba(244, 114, 182, 0.6);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.45), inset 0 1px 2px rgba(255,255,255,0.4), 0 0 16px rgba(244, 114, 182, 0.35);
+      }
+    }
+
+    .obs-card-brass-compact {
+      /* 梦幻马卡龙渐变：深邃星夜中透出薄荷冰蓝与草莓奶糖的通透光色 */
+      background: linear-gradient(135deg, rgba(26, 20, 50, 0.85) 0%, rgba(35, 18, 48, 0.8) 50%, rgba(16, 26, 45, 0.85) 100%) !important;
+      border: 1.5px solid rgba(244, 114, 182, 0.6);
+      border-radius: 1.35rem;
+      position: relative;
+      color: #fff;
+      overflow: hidden;
+      padding: 12px 14px;
+      backdrop-filter: blur(25px);
+      animation: macaron-card-glow 6s infinite ease-in-out;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* 开启态：马卡龙全彩星芒爆发 (不再有突兀黄，换成温柔香草白月光 + 蜜桃粉金呼吸) */
+    .obs-card-brass-compact.is-active-brass {
+      animation: macaron-active-glow 4s infinite ease-in-out !important;
+    }
+    @keyframes macaron-active-glow {
+      0%, 100% {
+        border-color: rgba(253, 230, 138, 0.7);
+        box-shadow: 0 0 25px rgba(244, 114, 182, 0.45), 0 0 40px rgba(147, 197, 253, 0.3), inset 0 0 15px rgba(254, 240, 138, 0.18);
+      }
+      50% {
+        border-color: rgba(244, 114, 182, 0.85);
+        box-shadow: 0 0 30px rgba(196, 181, 253, 0.5), 0 0 50px rgba(244, 114, 182, 0.35), inset 0 0 20px rgba(244, 114, 182, 0.25);
+      }
+    }
+
+    /* 缓缓自转的马卡龙星象腕表 (梦幻薄荷蓝 + 草莓粉金星轨) */
+    @keyframes poetic-watch-spin {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to { transform: translateY(-50%) rotate(360deg); }
+    }
+    .poetic-astronomy-watch {
+      position: absolute;
+      top: 50%; right: -22px;
+      width: 152px; height: 152px;
+      pointer-events: none;
+      animation: poetic-watch-spin 35s linear infinite;
+      transform-origin: center center;
+      filter: drop-shadow(0 0 8px rgba(186, 230, 253, 0.6)) drop-shadow(0 0 14px rgba(244, 114, 182, 0.35));
+    }
+
+    /* Bling-Bling 碎钻自闪小星星：温和呼吸，不扎眼 */
+    @keyframes macaron-star-sparkle {
+      0%, 100% { transform: scale(1); opacity: 0.65; filter: drop-shadow(0 0 2px #fff); }
+      50% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 8px #fef9c3) drop-shadow(0 0 12px #f472b6); }
+    }
+    .bling-star {
+      animation: macaron-star-sparkle 2.2s infinite ease-in-out;
+      transform-origin: center;
+    }
+    .bling-star-delay {
+      animation: macaron-star-sparkle 2.8s infinite ease-in-out 0.9s;
+      transform-origin: center;
+    }
+
+    /* 左侧徽章：甜心马卡龙小星球 (奶蓝 + 奶粉渐变 + 白贝母微光) */
+    .poetic-dial-badge {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fbcfe8 45%, #93c5fd 85%);
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 10px rgba(186, 230, 253, 0.8), 0 0 16px rgba(244, 114, 182, 0.5), inset 0 0 4px #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    /* 右侧开关：果冻珍珠搭扣 (香草奶白珍珠 + 柔和温润光晕) */
+    .poetic-pearl-lock {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 11px;
+      border-radius: 9999px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      backdrop-filter: blur(10px);
+    }
+    /* 开启：香草月白白贝母色 */
+    .poetic-pearl-lock.is-on {
+      background: linear-gradient(135deg, rgba(254, 249, 195, 0.3) 0%, rgba(244, 114, 182, 0.4) 50%, rgba(147, 197, 253, 0.45) 100%) !important;
+      border-color: rgba(254, 249, 195, 0.8) !important;
+      color: #fef9c3 !important;
+      box-shadow: 0 0 14px rgba(254, 249, 195, 0.6), inset 0 1px 2px #ffffff;
+    }
+    .poetic-pearl-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fef9c3;
+      box-shadow: 0 0 6px #fef9c3, 0 0 10px rgba(244, 114, 182, 0.6);
+    }
+    /* 关闭：柔雾海盐灰蓝 (清透甜美) */
+    .poetic-pearl-lock.is-off {
+      background: rgba(30, 41, 59, 0.5);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #93c5fd;
+    }
+    .poetic-pearl-lock.is-off .poetic-pearl-dot {
+      background: #60a5fa;
+      box-shadow: 0 0 4px #60a5fa;
+    }
+
+    /* ---------- 3. 📡 射电雷达专属：深空捕获 · 激光偏振全息晶片 (尺寸与琉璃/星象表完全对齐) ---------- */
+    
+    /* 射电外框冷光呼吸 */
+    @keyframes hud-card-pulse {
+      0%, 100% {
+        border-color: rgba(56, 189, 248, 0.45);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.35), 0 0 18px rgba(14, 165, 233, 0.2);
+      }
+      50% {
+        border-color: rgba(99, 102, 241, 0.6);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.5), 0 0 25px rgba(56, 189, 248, 0.35);
+      }
+    }
+
+    .obs-card-hud-pro {
+      /* 紧凑深空冷钴蓝：与琉璃/星象表完全一致的外壳尺寸与圆角 */
+      background: linear-gradient(135deg, rgba(10, 25, 48, 0.8) 0%, rgba(8, 18, 36, 0.85) 50%, rgba(5, 12, 24, 0.9) 100%) !important;
+      border: 1.5px solid rgba(56, 189, 248, 0.45);
+      border-radius: 1.35rem; /* 严格对齐 */
+      position: relative;
+      color: #e0f2fe;
+      overflow: hidden;
+      padding: 12px 14px;     /* 严格对齐内边距 */
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45), inset 0 1px 1.5px rgba(255, 255, 255, 0.3);
+      animation: hud-card-pulse 6s infinite ease-in-out;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+    }
+
+    /* 开启态：高能引力波捕获光效 */
+    .obs-card-hud-pro.is-active-hud {
+      border-color: rgba(125, 211, 252, 0.8) !important;
+      background: linear-gradient(135deg, rgba(14, 40, 75, 0.88) 0%, rgba(12, 28, 56, 0.9) 50%, rgba(6, 16, 32, 0.95) 100%) !important;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.4), 0 0 45px rgba(99, 102, 241, 0.25), inset 0 0 16px rgba(56, 189, 248, 0.2) !important;
+    }
+
+    /* 卡片顶部流动的极细单像素全息扫描光流 */
+    .obs-card-hud-pro::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 200%; height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.85), rgba(244, 63, 94, 0.7), transparent);
+      animation: hud-laser-sweep 4s linear infinite;
+    }
+    @keyframes hud-laser-sweep {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* 律动微型跳动频谱条 */
+    @keyframes wave-jump {
+      0%, 100% { height: 3px; opacity: 0.5; }
+      50% { height: 12px; opacity: 1; }
+    }
+    .hud-bar {
+      width: 2.5px;
+      background: #38bdf8;
+      border-radius: 2px;
+      box-shadow: 0 0 4px #38bdf8;
+      animation: wave-jump 1.1s ease-in-out infinite;
+    }
+    .hud-bar:nth-child(2) { animation-delay: 0.2s; height: 8px; }
+    .hud-bar:nth-child(3) { animation-delay: 0.4s; height: 11px; background: #f43f5e; box-shadow: 0 0 5px #f43f5e; }
+    .hud-bar:nth-child(4) { animation-delay: 0.15s; height: 6px; }
+
+    /* 右侧背景：微弱自转的射电雷达准星天线 */
+    .hud-radar-disc {
+      position: absolute;
+      right: -15px; top: 50%;
+      transform: translateY(-50%);
+      width: 130px; height: 130px;
+      pointer-events: none;
+      opacity: 0.45;
+      filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5));
+    }
+    @keyframes radar-disc-spin {
+      from { transform: translateY(-50%) rotate(0deg); }
+      to { transform: translateY(-50%) rotate(360deg); }
+    }
+    .radar-spinning {
+      animation: radar-disc-spin 25s linear infinite;
+      transform-origin: center;
+    }
+
+    /* 优化后的全息偏振开关 (精致胶囊按钮，消灭黑方框) */
+    .hud-tactical-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      backdrop-filter: blur(8px);
+      border: 1.2px solid rgba(56, 189, 248, 0.5);
+    }
+    .hud-tactical-btn.is-on {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.3) 0%, rgba(14, 165, 233, 0.45) 50%, rgba(99, 102, 241, 0.5) 100%) !important;
+      border-color: #7dd3fc !important;
+      color: #e0f2fe !important;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.6), inset 0 1px 1px #fff;
+    }
+    .hud-btn-dot {
+      width: 6.5px;
+      height: 6.5px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 6px #38bdf8;
+    }
+    .hud-tactical-btn.is-off {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #64748b;
+    }
+    .hud-tactical-btn.is-off .hud-btn-dot {
+      background: #475569;
+      box-shadow: none;
+    }
